@@ -1,22 +1,30 @@
 import "./App.css";
 import Box from "./components/box";
 import { useState, useEffect } from "react";
+import Login from "./components/login";
+import { readCookie } from "./common";
+import { authCheck } from "./utils/utilities";
 
 function App() {
   const [user, setUser] = useState("");
   const [photos, setPhotos] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [cookie, setCookie] = useState();
+
+  async function loginWithToken(cookie) {
+    const user = await authCheck(cookie);
+    console.log(user);
+    setUser(user);
+    setCookie(cookie);
+  }
 
   useEffect(() => {
     fetchImages();
+    let cookie = readCookie("jwt_token");
+    if (cookie !== false) {
+      loginWithToken(cookie);
+    }
   }, []);
-
-  const myArray = [
-    { name: "Harry" },
-    { name: "George" },
-    { name: "Hermione" },
-    { name: "Mafalda" },
-  ];
 
   const fetchImages = async () => {
     const response = await fetch("https://picsum.photos/v2/list");
@@ -27,19 +35,12 @@ function App() {
     console.log(photos);
   };
 
-  // for (let index = 0; index < myArray.length; index++) {
-  //   const element = myArray[index];
-  //   console.log(element);
-  // }
-  // This can be rewritten as a map function and the map function can be placed in the JSX below
-
   return (
     <div className="App">
-      <button onClick={(event) => setLoggedIn(!loggedIn)}>
-        login or logout
-      </button>
+      <Login setter={setUser} />
+      <h1>{user} is logged in</h1>
 
-      {loggedIn ? (
+      {user ? (
         photos.map((item, index) => {
           return (
             <div>
