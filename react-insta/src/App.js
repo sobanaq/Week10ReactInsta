@@ -35,11 +35,18 @@ function App() {
     console.log(photos);
   };
 
+  const logout = () => {
+    document.cookie =
+      "jwt_token =; path=/; expires = Thu, 01 Jan 1970 00:00:01 GMT;";
+    setUser("");
+  };
+
   return (
     <div className="App">
       <Login setter={setUser} />
-      <h1>{user} is logged in</h1>
-
+      <br></br>
+      {{ user } && <button onClick={logout}>logout</button>}
+      {{ user } ? <h1>{user} is logged in</h1> : <h1>logged out</h1>}
       {user ? (
         photos.map((item, index) => {
           return (
@@ -53,7 +60,6 @@ function App() {
         <h1>Please Login</h1>
       )}
       <br></br>
-
       {/* && is the equivalent of an IF statement */}
       {/* ? and : are the equivalent of an IF ELSE statement */}
       {/* <input onChange = {(event) => setUser(event.target.value)} />
@@ -61,7 +67,6 @@ function App() {
       {/* IF user exists then display the username in the Box component */}
       {/* {(user == "Harry") ? <Box name="harry logged in" /> : <Box name = "harry not logged in"/>} */}
       {/* IF the username == Harry THEN display Harry logged in ELSE display Harry not logged in */}
-
       {/* {myArray.map((item,index) => {return (
         <div>
           <Box name={item.name} />
