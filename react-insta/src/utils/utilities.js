@@ -2,7 +2,8 @@ import { storeCookie } from "../common";
 
 export const login = async (username, email, password, setter, cookie) => {
   try {
-    const response = await fetch("http://localhost:5001/login", {
+    console.log(process.env.REACT_APP_REST_API_URL);
+    const response = await fetch(`${process.env.REACT_APP_REST_API_URL}login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -24,13 +25,16 @@ export const login = async (username, email, password, setter, cookie) => {
 
 export const authCheck = async (jwt_token) => {
   try {
-    const response = await fetch("http://localhost:5001/authCheck", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt_token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_REST_API_URL}authCheck`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt_token}`,
+        },
+      }
+    );
     console.log(response);
     const data = await response.json();
     console.log("authCheck:", data);
@@ -43,15 +47,18 @@ export const authCheck = async (jwt_token) => {
 
 export const addUser = async (username, email, password, setter, cookie) => {
   try {
-    const response = await fetch("http://localhost:5001/addUser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_REST_API_URL}aaddUser`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          password: password,
+        }),
+      }
+    );
     const data = await response.json();
     console.log(data);
     console.log(data.user);
@@ -64,4 +71,39 @@ export const addUser = async (username, email, password, setter, cookie) => {
 };
 
 //Deleting a user -------------------------------------------------------
+export const deleteUser = async function deleteUser(item) {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_REST_API_URL}deleteUser`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+        }),
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Updating a username ---------------------------------------------------
+export const updateUserEmail = async function updateUserEmail(item) {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_REST_API_URL}updateUserEmail`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          password: password,
+        }),
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};

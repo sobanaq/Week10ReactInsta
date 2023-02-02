@@ -1,5 +1,8 @@
 //Deleting a user -------------------------------------------------------
 
+import { useState } from "react";
+import { deleteUser, login } from "../utils/utilities";
+
 exports.deleteUser = async (request, response) => {
   try {
     await User.deleteOne({ user: request.body.username });
@@ -11,3 +14,5 @@ exports.deleteUser = async (request, response) => {
     response.status(500).send({ error: error.message });
   }
 };
+
+export default deleteUser;
