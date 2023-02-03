@@ -8,7 +8,7 @@ exports.updateUserEmail = async (request, response) => {
     );
     response
       .status(200)
-      .send({ msg: "You have succesfully updated the email address." });
+      .send({ msg: "You have succesfully updated your email address." });
   } catch (error) {
     console.log(error);
     response.status(500).send({ error: error.message });

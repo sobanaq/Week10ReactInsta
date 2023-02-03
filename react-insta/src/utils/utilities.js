@@ -43,12 +43,12 @@ export const authCheck = async (jwt_token) => {
     console.log(error);
   }
 };
-//Adding a user -------------------------------------------------------
 
+//Adding a user -------------------------------------------------------
 export const addUser = async (username, email, password, setter, cookie) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_REST_API_URL}aaddUser`,
+      `${process.env.REACT_APP_REST_API_URL}addUser`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
