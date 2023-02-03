@@ -71,7 +71,7 @@ export const addUser = async (username, email, password, setter, cookie) => {
 };
 
 //Deleting a user -------------------------------------------------------
-export const deleteUser = async function deleteUser(item) {
+export const deleteUser = async function deleteUser(username, item) {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_REST_API_URL}deleteUser`,
@@ -89,7 +89,12 @@ export const deleteUser = async function deleteUser(item) {
 };
 
 //Updating a username ---------------------------------------------------
-export const updateUserEmail = async function updateUserEmail(item) {
+export const updateUserEmail = async function updateUserEmail(
+  username,
+  email,
+  password,
+  item
+) {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_REST_API_URL}updateUserEmail`,
